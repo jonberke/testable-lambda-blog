@@ -1,0 +1,39 @@
+{
+  "body": "hello world",
+  "comment": "This is a sample API Gateway event",
+
+  "version": "2.0",
+  "routeKey": "POST /",
+  "rawPath": "/",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "cache-control": "no-cache",
+    "content-length": "16",
+    "content-type": "text/plain",
+    "host": "dw5cjaccf9.execute-api.us-west-2.amazonaws.com",
+    "postman-token": "427423ce-8e30-44b5-9046-ad0af68b809a",
+    "user-agent": "PostmanRuntime/7.22.0",
+    "x-amzn-trace-id": "Root=1-5f84e0d6-574066d7104b97c131240e13",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "apiId": "dw5cjaccf9",
+    "domainName": "dw5cjaccf9.execute-api.us-west-2.amazonaws.com",
+    "domainPrefix": "dw5cjaccf9",
+    "http": {
+      "method": "POST",
+      "path": "/",
+      "protocol": "HTTP/1.1",
+      "userAgent": "PostmanRuntime/7.22.0"
+    },
+    "requestId": "UUgRgj_zvHcEJIQ=",
+    "routeKey": "POST /",
+    "stage": "$default",
+    "time": "12/Oct/2020:23:03:50 +0000",
+    "timeEpoch": 1602543830317
+  },
+  "isBase64Encoded": false
+}
