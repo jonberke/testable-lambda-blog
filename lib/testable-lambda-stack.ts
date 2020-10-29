@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import * as apig from '@aws-cdk/aws-apigatewayv2'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as codedeploy from '@aws-cdk/aws-codedeploy'
+import * as cloudwatch from '@aws-cdk/aws-cloudwatch'
 import { TestableLambda } from './testable-lambda'
 
 export class TestableLambdaStack extends cdk.Stack {
@@ -20,10 +21,20 @@ export class TestableLambdaStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_12_X
     })
 
+    // Simple alarm that triggers when there are any invocation errors
+    const invocationErrorsAlarm = new cloudwatch.Alarm(this, 'invoke-errors', {
+      metric: mainFunction.metricErrors(),
+      threshold: 1,
+      evaluationPeriods: 1
+      
+    })
+
     const testableLambda = new TestableLambda(this, 'testable-lambda', {
       mainFunction,
       testFunction,
-      deploymentConfig: codedeploy.LambdaDeploymentConfig.ALL_AT_ONCE
+      // Use LambdaDeploymentConfig.ALL_AT_ONCE for dev deployments
+      deploymentConfig: codedeploy.LambdaDeploymentConfig.CANARY_10PERCENT_10MINUTES,
+      alarms: [invocationErrorsAlarm]
     })
 
     // Use testableLambda.liveAlias to integrate with other services like API Gateway

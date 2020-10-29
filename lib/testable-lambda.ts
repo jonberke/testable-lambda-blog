@@ -1,11 +1,13 @@
 import { StackProps, Construct } from '@aws-cdk/core'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as codedeploy from '@aws-cdk/aws-codedeploy'
+import * as cloudwatch from '@aws-cdk/aws-cloudwatch'
 
 interface TestableLambdaProps extends StackProps {
   mainFunction: lambda.Function
   testFunction: lambda.Function
   deploymentConfig: codedeploy.ILambdaDeploymentConfig
+  alarms?: cloudwatch.Alarm[]
   liveAliasName?: string
 }
 
@@ -17,6 +19,8 @@ export class TestableLambda extends Construct {
 
     const aliasName = props.liveAliasName || 'live'
 
+    // The mainFunction's code property must use fromAsset() of fromInline() for the CDK to
+    // automatically detect changes
     const newVersion = props.mainFunction.currentVersion
     this.liveAlias = newVersion.addAlias(aliasName)
 
@@ -27,6 +31,7 @@ export class TestableLambda extends Construct {
       alias: this.liveAlias,
       deploymentConfig: props.deploymentConfig,
       preHook: props.testFunction,
+      alarms: props.alarms
     })
   }
 }
