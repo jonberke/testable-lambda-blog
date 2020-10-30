@@ -1,5 +1,5 @@
 # About
-This repo contains the source code referred to in the [Testable Lambda blog post](https://outwiththeold.info/posts/testable-lambda/)
+This repo contains the source code referred to in the [Testable Lambda blog post](https://blog.outwiththeold.info/posts/testable-lambda/)
 
 # Prerequisite
 This project requires the following tools to be installed:
